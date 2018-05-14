@@ -4,7 +4,8 @@ from numbers import Number
 
 
 #test_expr = "(define x 5) ( + (* 2 x) 7)"
-test_expr = "(define x 5) (if (= x 5) (define x 6))"
+#test_expr = "(define x 5) (if (and (= 5 5) (= 6 6)) (define x 7))"
+test_expr = "(not (= 5 5))"
 operations = []
 variables = {}
 
@@ -22,13 +23,25 @@ def conditional(condition, expression):
 
 
 operators = {
-    '+': operator.add,
-    '-': operator.sub,
-    '*': operator.mul,
-    '/': operator.floordiv,
-    '=': operator.eq,
+    '+':  operator.add,
+    '-':  operator.sub,
+    '*':  operator.mul,
+    '**': operator.pow,
+    '/':  operator.truediv,
+    '=':  operator.eq,
+    '!=': operator.ne,
+    '<':  operator.lt,
+    '<=': operator.le,
+    '>':  operator.gt,
+    '>=': operator.ge,
+    'abs': operator.abs,
+    'mod': operator.mod,
+    'or': operator.__or__,
+    'and': operator.__and__,
+    'not': operator.__not__,
     'define': attribution,
-    'if': conditional
+    'if':     conditional,
+
 }
 
 
@@ -95,6 +108,7 @@ def do_op(op):
 
     if op[0] == 'define':
         return operators[op[0]](op[1], do_op(op[2]))
+    if operators[op[0]]
     return operators[op[0]](do_op(op[1]), do_op(op[2]))
 
 
